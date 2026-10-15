@@ -3,9 +3,10 @@ import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { db } from "../firebase/config";
 import { useAuth } from "../context/AuthContext";
+import { localISO as iso } from "../utils/dates";
 
 const COLORS = ["#2dd4a7", "#38bdf8", "#818cf8", "#f59e0b", "#f472b6", "#a3e635", "#fb7185", "#22d3ee", "#94a3b8"];
-const iso = (d) => d.toISOString().slice(0, 10);
+
 
 export default function Dashboard() {
   const { user, profile } = useAuth();

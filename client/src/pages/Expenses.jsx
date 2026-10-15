@@ -4,10 +4,11 @@ import { Trash2, Pencil, Plus } from "lucide-react";
 import toast from "react-hot-toast";
 import { db } from "../firebase/config";
 import { useAuth } from "../context/AuthContext";
+import { localISO } from "../utils/dates";
 
 export const CATEGORIES = ["Food", "Groceries", "Transport", "Shopping", "Bills", "Education", "Entertainment", "Health", "Other"];
 const PAGE = 15;
-const empty = { date: new Date().toISOString().slice(0, 10), merchant: "", amount: "", category: "Food", description: "", paymentMethod: "Cash" };
+const empty = { date: localISO(new Date()), merchant: "", amount: "", category: "Food", description: "", paymentMethod: "Cash" };
 
 export default function Expenses() {
   const { user, profile } = useAuth();

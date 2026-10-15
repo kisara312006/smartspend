@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Expenses from "./pages/Expenses";
+import Analytics from "./pages/Analytics";
 import Budget from "./pages/Budget";
 import Profile from "./pages/Profile";
 import AdminUsers from "./pages/AdminUsers";
@@ -27,6 +28,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/expenses" element={<Expenses />} />
+                <Route path="/analytics" element={<Analytics />} />
         <Route path="/budget" element={<Budget />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/admin/users" element={<ProtectedRoute adminOnly><AdminUsers /></ProtectedRoute>} />
