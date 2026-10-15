@@ -1,11 +1,13 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { LayoutDashboard, Receipt, PiggyBank, UserCircle, Users, LogOut, Wallet, BarChart3 } from "lucide-react";
+import { LayoutDashboard, Receipt, PiggyBank, UserCircle, Users, LogOut, Wallet, BarChart3, Calculator, TrendingDown } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
 const userLinks = [
   ["/dashboard", "Dashboard", LayoutDashboard], ["/expenses", "Expenses", Receipt],
     ["/analytics", "Analytics", BarChart3],
   ["/budget", "Budget", PiggyBank], ["/profile", "Profile", UserCircle],
+    ["/affordability", "Can I afford this?", Calculator],
+  ["/what-if", "What-if", TrendingDown],
 ];
 export default function AppLayout() {
   const { isAdmin, logout, profile } = useAuth();
