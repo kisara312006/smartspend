@@ -1,0 +1,12 @@
+@tailwind base; @tailwind components; @tailwind utilities;
+body { @apply bg-ink text-slate-100 font-sans antialiased;
+  background-image: radial-gradient(900px 500px at 85% -10%, rgba(45,212,167,.16), transparent),
+                    radial-gradient(700px 500px at -10% 10%, rgba(59,130,246,.14), transparent); background-attachment: fixed; }
+@layer components {
+  .glass { @apply rounded-2xl border border-white/10 bg-white/[0.05] backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,.35),inset_0_1px_0_rgba(255,255,255,.08)]; }
+  .input { @apply w-full rounded-xl border border-white/10 bg-white/5 px-3.5 py-2.5 text-sm outline-none focus:border-mint focus:ring-2 focus:ring-mint/30 placeholder:text-slate-500; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-b from-emerald-400 to-teal-500 px-4 py-2.5 text-sm font-bold text-ink shadow-lg shadow-emerald-500/20 transition hover:brightness-110 disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-white; }
+  .btn-ghost { @apply inline-flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 text-sm font-semibold hover:bg-white/10; }
+  .label { @apply mb-1 block text-xs font-semibold text-slate-400; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }

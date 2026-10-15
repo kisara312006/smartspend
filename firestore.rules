@@ -1,0 +1,50 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() { return request.auth != null; }
+    function isAdmin()  { return signedIn() && request.auth.token.admin == true; } // server-set custom claim
+    function owns(uid)  { return signedIn() && request.auth.uid == uid; }
+
+    // Profile: owner edits only these safe fields. Role lives in custom claims, never here.
+    match /users/{uid} {
+      allow read: if owns(uid) || isAdmin();
+      allow create: if owns(uid)
+        && request.resource.data.keys().hasOnly(['name','email','photoURL','provider','currency','monthlyBudget','theme','createdAt','updatedAt']);
+      allow update: if owns(uid)
+        && request.resource.data.diff(resource.data).affectedKeys()
+           .hasOnly(['name','photoURL','currency','monthlyBudget','theme','updatedAt']);
+      allow delete: if false; // account deletion goes through a Cloud Function
+    }
+
+    match /expenses/{id} {
+      function valid(d) {
+        return d.userId == request.auth.uid
+          && d.amount is number && d.amount > 0 && d.amount < 100000000
+          && d.merchant is string && d.merchant.size() > 0 && d.merchant.size() <= 100
+          && d.category is string && d.date is string
+          && (!('description' in d) || d.description.size() <= 500);
+      }
+      allow read: if signedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if signedIn() && valid(request.resource.data);
+      allow update: if signedIn() && resource.data.userId == request.auth.uid
+                    && valid(request.resource.data);
+      allow delete: if signedIn() && resource.data.userId == request.auth.uid;
+    }
+
+    match /budgets/{id} {
+      allow read: if signedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create, update: if signedIn() && request.resource.data.userId == request.auth.uid
+                            && request.resource.data.amount is number && request.resource.data.amount >= 0;
+      allow delete: if signedIn() && resource.data.userId == request.auth.uid;
+    }
+
+    // Admin-managed, read-only for everyone signed in
+    match /expenseCategories/{id} { allow read: if signedIn(); allow write: if isAdmin(); }
+    match /systemSettings/{id}    { allow read: if signedIn(); allow write: if isAdmin(); }
+
+    // Written by Cloud Functions only (Admin SDK bypasses rules)
+    match /auditLogs/{id} { allow read: if isAdmin(); allow write: if false; }
+
+    match /{document=**} { allow read, write: if false; }
+  }
+}
