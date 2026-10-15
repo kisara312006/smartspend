@@ -5,15 +5,21 @@ service cloud.firestore {
     function isAdmin()  { return signedIn() && request.auth.token.admin == true; } // server-set custom claim
     function owns(uid)  { return signedIn() && request.auth.uid == uid; }
 
+        function notSuspended() {
+      return !(get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('suspended', false));
+    }
+
     // Profile: owner edits only these safe fields. Role lives in custom claims, never here.
-    match /users/{uid} {
+        match /users/{uid} {
       allow read: if owns(uid) || isAdmin();
       allow create: if owns(uid)
         && request.resource.data.keys().hasOnly(['name','email','photoURL','provider','currency','monthlyBudget','theme','createdAt','updatedAt']);
       allow update: if owns(uid)
         && request.resource.data.diff(resource.data).affectedKeys()
            .hasOnly(['name','photoURL','currency','monthlyBudget','theme','updatedAt']);
-      allow delete: if false; // account deletion goes through a Cloud Function
+      allow update: if isAdmin()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['suspended','updatedAt']);
+      allow delete: if false;
     }
 
     match /expenses/{id} {
@@ -25,9 +31,9 @@ service cloud.firestore {
           && (!('description' in d) || d.description.size() <= 500);
       }
       allow read: if signedIn() && (resource.data.userId == request.auth.uid || isAdmin());
-      allow create: if signedIn() && valid(request.resource.data);
+            allow create: if signedIn() && valid(request.resource.data) && notSuspended();
       allow update: if signedIn() && resource.data.userId == request.auth.uid
-                    && valid(request.resource.data);
+                    && valid(request.resource.data) && notSuspended();
       allow delete: if signedIn() && resource.data.userId == request.auth.uid;
     }
 

@@ -28,6 +28,12 @@ export function AuthProvider({ children }) {
       });
       snap = await getDoc(ref);
     }
+
+        if (snap.data().suspended) {
+      await signOut(auth);
+      alert("This account has been suspended.");
+      return;
+    }
     setProfile({ id: u.uid, ...snap.data() });
     setUser(u); setLoading(false);
   }), []);
