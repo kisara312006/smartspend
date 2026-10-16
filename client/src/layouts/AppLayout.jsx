@@ -1,5 +1,5 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { LayoutDashboard, Receipt, PiggyBank, UserCircle, Users, LogOut, Wallet, BarChart3, Calculator, TrendingDown, FileText, ScanLine } from "lucide-react";
+import { LayoutDashboard, Receipt, PiggyBank, UserCircle, Users, LogOut, Wallet, BarChart3, Calculator, TrendingDown, FileText, ScanLine, Lightbulb } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
 const userLinks = [
@@ -7,6 +7,7 @@ const userLinks = [
   ["/expenses", "Expenses", Receipt],
     ["/add-receipt", "Scan receipt", ScanLine],
     ["/analytics", "Analytics", BarChart3],
+      ["/insights", "Insights", Lightbulb],
   ["/budget", "Budget", PiggyBank],
   ["/profile", "Profile", UserCircle],
     ["/affordability", "Can I afford this?", Calculator],
