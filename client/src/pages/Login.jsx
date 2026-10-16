@@ -21,6 +21,7 @@ export default function Login() {
   return (
     <div className="grid min-h-screen place-items-center p-4">
       <div className="glass w-full max-w-md p-8">
+        <img src="/logo-icon.png" alt="SmartSpend" className="mb-4 h-14 w-14 object-contain" />
         <h1 className="text-2xl font-extrabold">Welcome back</h1><p className="mb-6 text-sm text-slate-400">Log in to SmartSpend</p>
         <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); go(() => signInWithEmailAndPassword(auth, email, password)); }}>
           <div><label className="label">Email</label><input className="input" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} /></div>

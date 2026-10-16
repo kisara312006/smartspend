@@ -17,6 +17,7 @@ import Budget from "./pages/Budget";
 import Profile from "./pages/Profile";
 import AdminUsers from "./pages/AdminUsers";
 import "./index.css";
+import Reports from "./pages/Reports";
 
 const NotFound = () => <div className="grid h-screen place-items-center text-center"><div><h1 className="text-5xl font-extrabold">404</h1><p className="my-3 text-slate-400">That page doesn't exist.</p><Link className="btn" to="/">Go home</Link></div></div>;
 
@@ -33,6 +34,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                 <Route path="/analytics" element={<Analytics />} />
                         <Route path="/affordability" element={<Affordability />} />
         <Route path="/what-if" element={<WhatIf />} />
+                <Route path="/reports" element={<Reports />} />
         <Route path="/budget" element={<Budget />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/admin/users" element={<ProtectedRoute adminOnly><AdminUsers /></ProtectedRoute>} />

@@ -3,8 +3,12 @@ import { Wallet, LineChart, ShieldCheck } from "lucide-react";
 export default function Landing() {
   return (
     <div className="mx-auto max-w-5xl px-6 py-16">
-      <div className="mb-20 flex items-center justify-between"><div className="flex items-center gap-2 text-lg font-extrabold"><Wallet className="text-mint" />SmartSpend</div>
-        <div className="flex gap-2"><Link className="btn-ghost" to="/login">Log in</Link><Link className="btn" to="/register">Get started</Link></div></div>
+      <div className="mb-20 flex items-center justify-between">
+        <div className="flex items-center gap-3 text-lg font-extrabold">
+          <img src="/logo-icon.png" alt="" className="h-10 w-10 object-contain" />SmartSpend
+        </div>
+        <div className="flex gap-2"><Link className="btn-ghost" to="/login">Log in</Link><Link className="btn" to="/register">Get started</Link></div>
+      </div>
       <h1 className="max-w-3xl text-5xl font-extrabold leading-tight md:text-6xl">Know where your money went, and why it changed.</h1>
       <p className="mt-5 max-w-xl text-lg text-slate-300">Track expenses, set budgets, and see your spending patterns in one place.</p>
       <div className="mt-8"><Link className="btn" to="/register">Create free account</Link></div>

@@ -1,5 +1,5 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { LayoutDashboard, Receipt, PiggyBank, UserCircle, Users, LogOut, Wallet, BarChart3, Calculator, TrendingDown } from "lucide-react";
+import { LayoutDashboard, Receipt, PiggyBank, UserCircle, Users, LogOut, Wallet, BarChart3, Calculator, TrendingDown, FileText } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
 const userLinks = [
@@ -8,6 +8,7 @@ const userLinks = [
   ["/budget", "Budget", PiggyBank], ["/profile", "Profile", UserCircle],
     ["/affordability", "Can I afford this?", Calculator],
   ["/what-if", "What-if", TrendingDown],
+    ["/reports", "Reports", FileText],
 ];
 export default function AppLayout() {
   const { isAdmin, logout, profile } = useAuth();
@@ -17,7 +18,8 @@ export default function AppLayout() {
   return (
     <div className="mx-auto flex min-h-screen max-w-7xl flex-col gap-4 p-4 md:flex-row">
       <aside className="glass flex gap-1 p-3 md:sticky md:top-4 md:h-[calc(100vh-2rem)] md:w-60 md:flex-col md:self-start">
-        <div className="hidden items-center gap-2 px-3 py-3 md:flex"><Wallet className="text-mint" /><b className="text-lg">SmartSpend</b></div>
+        <div className="hidden items-center gap-2 px-3 py-3 md:flex">
+          <img src="/logo-icon.png" alt="" className="h-9 w-9 object-contain" /><b className="text-lg">SmartSpend</b></div>
         <nav className="flex flex-1 gap-1 overflow-x-auto md:flex-col">
           {links.map(([to, label, Icon]) => <NavLink key={to} to={to} className={cls}><Icon size={18} />{label}</NavLink>)}
         </nav>
