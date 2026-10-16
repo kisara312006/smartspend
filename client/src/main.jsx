@@ -18,6 +18,7 @@ import Profile from "./pages/Profile";
 import AdminUsers from "./pages/AdminUsers";
 import "./index.css";
 import Reports from "./pages/Reports";
+import ScanReceipt from "./pages/ScanReceipt";
 
 const NotFound = () => <div className="grid h-screen place-items-center text-center"><div><h1 className="text-5xl font-extrabold">404</h1><p className="my-3 text-slate-400">That page doesn't exist.</p><Link className="btn" to="/">Go home</Link></div></div>;
 
@@ -29,15 +30,16 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route element={<ProtectedRoute><AppLayout /></ProtectedRoute>}>
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/expenses" element={<Expenses />} />
-                <Route path="/analytics" element={<Analytics />} />
-                        <Route path="/affordability" element={<Affordability />} />
-        <Route path="/what-if" element={<WhatIf />} />
-                <Route path="/reports" element={<Reports />} />
-        <Route path="/budget" element={<Budget />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/admin/users" element={<ProtectedRoute adminOnly><AdminUsers /></ProtectedRoute>} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/expenses" element={<Expenses />} />
+      <Route path="/analytics" element={<Analytics />} />
+      <Route path="/affordability" element={<Affordability />} />
+      <Route path="/what-if" element={<WhatIf />} />
+      <Route path="/reports" element={<Reports />} />
+      <Route path="/add-receipt" element={<ScanReceipt />} />
+      <Route path="/budget" element={<Budget />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/admin/users" element={<ProtectedRoute adminOnly><AdminUsers /></ProtectedRoute>} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Routes>
